@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import HTMLWebpackPlugin from 'html-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import MonacoWebpackPlugin from 'monaco-editor-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -55,6 +56,10 @@ const config = {
           'sass-loader',
         ],
       },
+      {
+				test: /\.ttf$/,
+				type: 'asset/resource'
+			}
     ],
   },
   plugins: [
@@ -67,6 +72,7 @@ const config = {
       filename: 'css/[name].[contenthash].css',
     }),
     isDevelopment ? undefined : new CleanWebpackPlugin(),
+    new MonacoWebpackPlugin(),
   ].filter(Boolean),
 };
 
