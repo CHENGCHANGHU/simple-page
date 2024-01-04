@@ -11,6 +11,11 @@ export function testMonacoEditor() {
   openDirButton.innerText = 'Open Directory';
   fragment.appendChild(openDirButton);
 
+  const newFileNameInput = document.createElement('input');
+  newFileNameInput.type = 'text';
+  newFileNameInput.disabled = true;
+  fragment.appendChild(newFileNameInput);
+
   const newFileButton = document.createElement('button');
   newFileButton.innerText = 'New File';
   fragment.appendChild(newFileButton);
@@ -60,15 +65,20 @@ export function testMonacoEditor() {
       if (!currentDirHandle) {
         return;
       }
+      newFileNameInput.disabled = false;
     } catch (e) {
       console.error(e);
     }
   });
 
   newFileButton.addEventListener('click', async () => {
-    const newFileName = prompt('New File Name');
+    // If it is "prompt" however, user activation is needed
+    // const newFileName = String(prompt('New File Name'));
+    const newFileName = newFileNameInput.value;
     currentFileHandle = await currentDirHandle.getFileHandle(newFileName + '.mjs', { create: true });
-    
+    newFileNameInput.disabled = true;
+    newFileNameInput.value = '';
+
     const writable = await currentFileHandle.createWritable();
     await writable.write('');
     await writable.close();
@@ -111,9 +121,9 @@ export function testMonacoEditor() {
     await writable.close();
   });
 
-  runButton.addEventListener('click', () => {
+  runButton.addEventListener('click', async () => {
     resultBox.innerText = '';
-    const { result, duration } = runCode(monacoEditor.getValue(), {
+    const { result, duration } = await runCode(monacoEditor.getValue(), {
       lexicalEnvironment: {
         console: {
           log(...args) {
@@ -158,7 +168,7 @@ function getStyle() {
   `;
 }
 
-function runCode(code, { lexicalEnvironment, executeContext }) {
+async function runCode(code, { lexicalEnvironment, executeContext }) {
   const { keys, values } = Object.entries(lexicalEnvironment)
     .reduce((acc, [k, v]) => {
       acc.keys.push(k);
@@ -168,9 +178,19 @@ function runCode(code, { lexicalEnvironment, executeContext }) {
       keys: [],
       values: [],
     });
-  const wrappedFunction = (new Function(...keys, code)).bind(executeContext, ...values);
+  
+  // AsyncFunction is not a global object. It can be obtained with the following code: const AsyncFunction = async function () {}.constructor;
+  // const wrappedFunction = (new Function(...keys, code)).bind(executeContext, ...values);
+  const wrappedFunction = (new Function(...keys, `return async () => {${code}};`)).bind(executeContext, ...values)();
   const startTime = performance.now();
-  const result = wrappedFunction();
+  
+  let result;
+  try {
+    result = await wrappedFunction();
+  } catch (e) {
+    console.error(e);
+  }
+
   const endTime = performance.now();
   return {
     result,
