@@ -1,5 +1,6 @@
 import { testVideoCover } from './testVideoCover';
 import { testMonacoEditor } from './testMonacoEditor';
+import { testAsyncPool } from './testAsyncPool';
 
 window.addEventListener('load', main);
 
@@ -8,5 +9,7 @@ function main() {
 
   // testVideoCover();
 
-  testMonacoEditor();
+  // testMonacoEditor();
+
+  testAsyncPool();
 }
