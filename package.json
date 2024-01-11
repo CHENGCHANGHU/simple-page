@@ -28,6 +28,7 @@
     "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
+    "@golden-tiger/pipeline": "^0.0.2",
     "monaco-editor": "^0.45.0",
     "monaco-editor-webpack-plugin": "^7.1.0"
   }

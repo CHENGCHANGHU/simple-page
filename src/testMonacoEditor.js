@@ -53,6 +53,9 @@ export function testMonacoEditor() {
       language: 'javascript',
       fontSize: 14,
       tabSize: 2,
+      wordWrap: 'wordWrapColumn',
+      wordWrapColumn: 80,
+      wrappingStrategy: 'advanced'
     }
   );
 

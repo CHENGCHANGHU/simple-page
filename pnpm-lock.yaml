@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@golden-tiger/pipeline':
+    specifier: ^0.0.2
+    version: 0.0.2
   monaco-editor:
     specifier: ^0.45.0
     version: 0.45.0
@@ -1628,6 +1631,10 @@ packages:
   /@gar/promisify@1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
+
+  /@golden-tiger/pipeline@0.0.2:
+    resolution: {integrity: sha512-gRly2BKSZlMPPSLK58GAQKG7BYnHSS2XkD48jEdQLuFQYfGRgLzZrgIYy4xl7KlJMg1NBacpLUbUtHoe8SPQMw==}
+    dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}
