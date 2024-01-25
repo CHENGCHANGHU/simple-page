@@ -3,6 +3,7 @@ import { testMonacoEditor } from './testMonacoEditor';
 import { testAsyncPool } from './testAsyncPool';
 import { testVirtualList } from './testVirtualList';
 import { testPipeline } from './testPipeline';
+import { testSpecifyFileSize } from './testSpecifyFileSize';
 
 window.addEventListener('load', main);
 
@@ -11,10 +12,11 @@ function main() {
 
   try {
     // testVideoCover();
-    testMonacoEditor();
+    // testMonacoEditor();
     // testAsyncPool();
     // testVirtualList();
     // testPipeline();
+    testSpecifyFileSize();
   } catch (e) {
     console.error(e);
   }
