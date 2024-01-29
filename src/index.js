@@ -7,7 +7,7 @@ import { testSpecifyFileSize } from './testSpecifyFileSize';
 
 window.addEventListener('load', main);
 
-function main() {
+async function main() {
   console.log('loaded');
 
   try {
@@ -16,7 +16,11 @@ function main() {
     // testAsyncPool();
     // testVirtualList();
     // testPipeline();
-    testSpecifyFileSize();
+    // testSpecifyFileSize();
+
+    const { default: test } = await import('./testWorker');
+
+    test();
   } catch (e) {
     console.error(e);
   }
