@@ -18,7 +18,8 @@ async function main() {
     // testPipeline();
     // testSpecifyFileSize();
 
-    const { default: test } = await import('./testWorker');
+    // const { default: test } = await import('./testWorker');
+    const { default: test } = await import('./testMyers');
 
     test();
   } catch (e) {
